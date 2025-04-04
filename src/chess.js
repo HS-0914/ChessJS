@@ -1,6 +1,6 @@
 // NOTE: this example uses the chess.js library:
 // https://github.com/jhlywa/chess.js
-import { Chess, validateFen } from "chess.js";
+import { Chess } from "chess.js";
 
 const game = new Chess();
 const whiteSquareGrey = "#a9a9a9";
@@ -22,9 +22,13 @@ function comTurn() {
   $.ajax({
     url: "https://chess-api.com/v1",
     method: "POST",
-    data: {
-      fen: game.fen(),
+    headers: {
+      "Content-Type": "application/json",
     },
+    data: JSON.stringify({
+      fen: game.fen(),
+      variants: 1,
+    }),
     success: function (res) {
       console.log(res);
       const san = res.san;

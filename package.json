@@ -12,6 +12,7 @@
     "vite": "^6.2.0"
   },
   "dependencies": {
-    "chess.js": "^1.1.0"
+    "chess.js": "^1.1.0",
+    "ffish-es6": "^0.7.7"
   }
 }
