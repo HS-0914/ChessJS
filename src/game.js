@@ -1,8 +1,13 @@
 import { Chess } from "chess.js";
 
-export const game = new Chess();
+export const games = {};
 
-export function undoMove() {
-  game.undo();
-  return game.fen();
+export function newGame(gameId) {
+  games[gameId] = new Chess();
+}
+
+export function undoMove(boardId) {
+  const chess = games[boardId];
+  chess.undo();
+  return chess.fen();
 }

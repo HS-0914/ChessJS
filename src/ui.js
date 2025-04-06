@@ -1,4 +1,4 @@
-import { undoMove, game } from "./game.js";
+import { undoMove } from "./game.js";
 import { updateBoardPosition } from "./board.js";
 
 export function initUI() {
@@ -22,8 +22,21 @@ export function initUI() {
   });
 
   $("#undoBtn").click(function () {
-    undoMove();
-    const newFen = undoMove();
-    updateBoardPosition(newFen);
+    undoMove("myBoard");
+    undoMove("myBoard");
+    updateBoardPosition("myBoard");
+  });
+
+  // jQuery로 클릭 이벤트 설정
+  $("#startBtn").on("click", function () {
+    const $target = $("#main");
+    if ($target.length) {
+      $("html, body").animate(
+        {
+          scrollTop: $target.offset().top,
+        },
+        600 // 부드럽게 0.6초 동안 스크롤
+      );
+    }
   });
 }

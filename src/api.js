@@ -1,26 +1,44 @@
-import { game } from "./game.js";
-import { updateBoardPosition } from "./board.js";
+import { games } from "./game.js";
+import { boards, updateBoardPosition } from "./board.js";
 
-export function comTurn() {
+export function comTurn(boardId) {
   const depth = Number($("#depth").val());
   const maxThinkingTime = Number($("#thinkingTime").val());
-
+  const chess = games[boardId];
+  $("#undoBtn").prop("disabled", true); // 요청 전 비활성화
   $.ajax({
     url: "https://chess-api.com/v1",
     method: "POST",
     headers: { "Content-Type": "application/json" },
     data: JSON.stringify({
-      fen: game.fen(),
+      fen: chess.fen(),
       depth,
       maxThinkingTime,
     }),
     success: function (res) {
       const san = res.san;
-      game.move(san);
-      updateBoardPosition(game.fen());
+      chess.move(san);
+      updateBoardPosition(boardId);
     },
     error: function (error) {
       console.log("에러 : ", error);
     },
+    complete: () => {
+      $("#undoBtn").prop("disabled", false); // 성공/실패 후 다시 활성화
+    },
   });
+}
+
+export function randomChess(boardId) {
+  const chess = games[boardId];
+  const board = boards[boardId];
+  const possibleMoves = chess.moves();
+  // exit if the game is over
+  if (chess.isGameOver()) return;
+
+  const randomIdx = Math.floor(Math.random() * possibleMoves.length);
+  chess.move(possibleMoves[randomIdx]);
+  board.position(chess.fen());
+
+  setTimeout(() => randomChess(boardId), 2000);
 }
