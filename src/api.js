@@ -43,3 +43,19 @@ export function randomChess(boardId) {
 
   setTimeout(() => randomChess(boardId), 2000);
 }
+
+export function loadPuzzle(boardId) {
+  $.ajax({
+    url: "https://api.chess.com/pub/puzzle/random",
+    method: "GET",
+    success: (data) => {
+      const { fen, title, url } = data;
+      $("#puzzleTitle").text(title);
+      $("#puzzleLink").attr("href", url);
+      boards[boardId].position(fen);
+    },
+    error: (error) => {
+      console.error(error);
+    },
+  });
+}
