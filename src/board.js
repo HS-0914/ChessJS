@@ -76,10 +76,11 @@ export function initBoard(boardId) {
     onMouseoutSquare: () => onMouseoutSquare(boardId),
     onSnapEnd: () => updateBoardPosition(boardId),
   });
-  if (boardId === "myBoard") {
-    games[boardId].load("6k1/5ppp/8/8/8/8/5PPP/3QR1K1 w - - 0 1", {
-      skipValidation: true,
-    });
-    boards[boardId].position(games[boardId].fen());
-  }
+  // checkmate test
+  // if (boardId === "myBoard") {
+  //   games[boardId].load("6k1/5ppp/8/8/8/8/5PPP/3QR1K1 w - - 0 1", {
+  //     skipValidation: true,
+  //   });
+  //   boards[boardId].position(games[boardId].fen());
+  // }
 }
