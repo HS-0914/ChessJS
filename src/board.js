@@ -21,7 +21,7 @@ function greySquare(boardId, square) {
 function onDragStart(boardId, _source, piece) {
   const chess = games[boardId];
   // if(boardId ==="myBoard")
-
+  console.log(chess);
   if (
     chess.isGameOver() ||
     boardId !== "myBoard" ||

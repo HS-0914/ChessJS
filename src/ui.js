@@ -23,7 +23,6 @@ export function initUI() {
 
   $("#undoBtn").click(function () {
     undoMove("myBoard");
-    undoMove("myBoard");
     updateBoardPosition("myBoard");
   });
 
