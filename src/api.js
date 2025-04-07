@@ -5,7 +5,7 @@ export function comTurn(boardId) {
   const depth = Number($("#depth").val());
   const maxThinkingTime = Number($("#thinkingTime").val());
   const chess = games[boardId];
-  $("#undoBtn").prop("disabled", true); // 요청 전 비활성화
+  $("#undoBtn").prop("disabled", false); // 요청 전 비활성화
   $.ajax({
     url: "https://chess-api.com/v1",
     method: "POST",
@@ -16,6 +16,7 @@ export function comTurn(boardId) {
       maxThinkingTime,
     }),
     success: function (res) {
+      console.log(res);
       const san = res.san;
       chess.move(san);
       updateBoardPosition(boardId);

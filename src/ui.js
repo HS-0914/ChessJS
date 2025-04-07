@@ -39,4 +39,17 @@ export function initUI() {
       );
     }
   });
+
+  // jQuery로 클릭 이벤트 설정
+  $("#puzzleBtn").on("click", function () {
+    const $target = $("#puzzle");
+    if ($target.length) {
+      $("html, body").animate(
+        {
+          scrollTop: $target.offset().top,
+        },
+        600 // 부드럽게 0.6초 동안 스크롤
+      );
+    }
+  });
 }

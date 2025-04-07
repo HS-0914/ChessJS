@@ -29,7 +29,7 @@
         font-family: "Noto Sans KR", sans-serif;
       }
       .board {
-        width: 500px;
+        max-width: 500px;
         margin: auto; /* 가운데 정렬 */
       }
       .section-card {
@@ -109,6 +109,26 @@
         margin: 0 10px;
         text-align: center;
       }
+
+      /* ----------------------------------------
+         5. 메인 헤더 (Hero) 영역
+         ---------------------------------------- */
+      .puzzle-section {
+        background-color: var(--chess-brown);
+        color: #fff;
+        text-align: center;
+        padding: 2rem 1rem;
+      }
+      .puzzle-section h2 {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        font-weight: bold;
+        color: #5c4033;
+      }
+      .puzzle-section p {
+        margin-bottom: 1.5rem;
+        font-size: 1.25rem;
+      }
     </style>
   </head>
 
@@ -122,10 +142,10 @@
         <img src="#" alt="Chess Logo" />
         My Chess
       </a>
-      <div>
+      <!-- <div>
         <a href="#" class="btn btn-outline-light">회원가입</a>
         <a href="#" class="btn btn-outline-light">로그인</a>
-      </div>
+      </div> -->
     </nav>
 
     <!-- =========================================
@@ -148,9 +168,9 @@
           <button class="btn btn-success btn-lg mt-3 mb-3" id="startBtn">
             지금 도전하기
           </button>
-          <a href="#puzzle" class="btn btn-dark btn-lg mt-3 mb-3"
-            >체스퍼즐 풀기</a
-          >
+          <button class="btn btn-dark btn-lg mt-3 mb-3" id="puzzleBtn">
+            체스퍼즐 풀기
+          </button>
         </div>
       </div>
     </section>
@@ -159,7 +179,7 @@
          체스 게임 메인 섹션
          ========================================= -->
     <section class="main-section container" id="main">
-      <div class="card section-card" style="background-color: #f0d9b5">
+      <div class="card section-card">
         <div class="card-body text-center">
           <h2 class="card-title">🆚 AI와 1:1 체스 게임</h2>
           <!-- 체스판 컨테이너 -->
@@ -168,11 +188,13 @@
           <div class="control-panel">
             <div class="row align-items-center justify-content-center">
               <div class="col-auto">
-                <label for="depth">Depth:</label>
+                <label for="depth" style="color: #7a5c3b">Depth:</label>
                 <input type="number" id="depth" value="1" min="1" max="18" />
               </div>
               <div class="col-auto">
-                <label for="thinkingTime">Max Thinking Time (ms):</label>
+                <label for="thinkingTime" style="color: #7a5c3b"
+                  >Max Thinking Time (ms):</label
+                >
                 <input
                   type="number"
                   id="thinkingTime"
@@ -182,7 +204,9 @@
                 />
               </div>
               <div class="col-auto">
-                <button id="undoBtn" class="btn btn-warning">되돌리기</button>
+                <button id="undoBtn" class="btn btn-warning">
+                  <span style="color: rgb(255, 254, 246)"> 되돌리기</span>
+                </button>
               </div>
             </div>
           </div>
@@ -193,34 +217,39 @@
     <!-- =========================================
          퍼즐 영역
          ========================================= -->
-    <section class="hero-section" id="puzzle">
-      <div class="container">
-        <h2 class="card-title">🧩 체스 퍼즐</h2>
-        <p class="card-text">
-          매일 새로운 퍼즐에 도전해보세요!<br />
-          두뇌를 자극하는 흥미로운 문제로 체스 실력을 테스트할 수 있습니다.
-        </p>
-        <p class="card-text text-muted" style="font-size: 0.95rem">
-          퍼즐은 요청할 때마다 즉시 바뀌지 않으며, 약
-          <strong>15초 정도의 대기 시간</strong>이 있을 수 있습니다.
-        </p>
+    <section class="puzzle-section container" id="puzzle">
+      <div class="card section-card">
+        <div class="card-body text-center">
+          <h2 class="card-title">🧩 체스 퍼즐</h2>
+          <p class="card-text">
+            새로운 퍼즐에 도전해보세요!<br />
+            두뇌를 자극하는 흥미로운 문제로 체스 실력을 테스트할 수 있습니다.
+          </p>
+          <!-- 체스판 컨테이너 -->
+          <div id="puzzleBoard" class="board"></div>
+          <p class="card-text text-muted" style="font-size: 0.95rem">
+            퍼즐은 요청할 때마다 즉시 바뀌지 않으며, 약
+            <strong>15초 정도의 대기 시간</strong>이 있을 수 있습니다.
+          </p>
 
-        <p class="card-text text-muted" style="font-size: 0.9rem">
-          퍼즐 데이터는 <strong>Chess.com</strong>에서 제공됩니다.<br />
-          퍼즐을 외부에 공유하거나 게시할 경우, 반드시
-          <strong>
-            <a href="https://www.chess.com/daily-chess-puzzle" target="_blank">
-              Chess.com 퍼즐 페이지
-            </a>
-          </strong>
-          로 연결되는 명확한 출처 표기를 해주세요.
-        </p>
-        <!-- 체스판 컨테이너 -->
-        <div id="quizBoard" class="board"></div>
-        <!-- 추가적으로 체스 퍼즐, 레슨 등 다른 버튼을 넣어도 됩니다. -->
-        <button class="btn btn-success btn-lg mt-4" id="startBtn">
+          <p class="card-text text-muted" style="font-size: 0.9rem">
+            퍼즐 데이터는 <strong>Chess.com</strong>에서 제공됩니다.<br />
+            퍼즐을 외부에 공유하거나 게시할 경우, 반드시
+            <strong>
+              <a
+                href="https://www.chess.com/daily-chess-puzzle"
+                target="_blank"
+              >
+                Chess.com 퍼즐 페이지
+              </a>
+            </strong>
+            로 연결되는 명확한 출처 표기를 해주세요.
+          </p>
+          <!-- 추가적으로 체스 퍼즐, 레슨 등 다른 버튼을 넣어도 됩니다. -->
+          <!-- <button class="btn btn-success btn-lg mt-4" id="startBtn">
           게임 시작하기
-        </button>
+        </button> -->
+        </div>
       </div>
     </section>
 

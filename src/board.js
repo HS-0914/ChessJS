@@ -20,6 +20,8 @@ function greySquare(boardId, square) {
 
 function onDragStart(boardId, _source, piece) {
   const chess = games[boardId];
+  // if(boardId ==="myBoard")
+
   if (
     chess.isGameOver() ||
     boardId !== "myBoard" ||
@@ -38,7 +40,11 @@ function onDrop(boardId, source, target) {
   } catch {
     return "snapback";
   }
-  setTimeout(() => comTurn(boardId), 250);
+  if (chess.isGameOver()) {
+    alert("checkmate!");
+  } else {
+    setTimeout(() => comTurn(boardId), 250);
+  }
 }
 
 function onMouseoverSquare(boardId, square) {
@@ -70,4 +76,10 @@ export function initBoard(boardId) {
     onMouseoutSquare: () => onMouseoutSquare(boardId),
     onSnapEnd: () => updateBoardPosition(boardId),
   });
+  if (boardId === "myBoard") {
+    games[boardId].load("6k1/5ppp/8/8/8/8/5PPP/3QR1K1 w - - 0 1", {
+      skipValidation: true,
+    });
+    boards[boardId].position(games[boardId].fen());
+  }
 }
