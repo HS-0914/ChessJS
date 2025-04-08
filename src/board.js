@@ -65,7 +65,7 @@ export function chessMove(boardId, chess, chessMove) {
     }
     if (boardId === "puzzleBoard") {
       if (moveObj.san == chessPuzzle.puzzle[chessPuzzle.index]) {
-        if (++chessPuzzle.index > chessPuzzle.puzzle.length) {
+        if (++chessPuzzle.index === chessPuzzle.puzzle.length) {
           alert("Clear!");
           return;
         }
@@ -94,7 +94,7 @@ export function checkPuzzle() {
       chessPuzzle.puzzle.forEach(() => chess.undo());
       updateBoardPosition("puzzleBoard");
       chessPuzzle.index = 0;
-    }, 10000);
+    }, 8000);
   } else {
     setTimeout(() => {
       chess.move(chessPuzzle.puzzle[chessPuzzle.index++]);
