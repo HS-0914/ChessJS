@@ -165,7 +165,7 @@
           <!-- 체스판 컨테이너 -->
           <div id="aiBoard" class="board"></div>
           <!-- 추가적으로 체스 퍼즐, 레슨 등 다른 버튼을 넣어도 됩니다. -->
-          <button class="btn btn-success btn-lg mt-3 mb-3" id="startBtn">
+          <button class="btn btn-primary btn-lg mt-3 mb-3" id="startBtn">
             지금 도전하기
           </button>
           <button class="btn btn-dark btn-lg mt-3 mb-3" id="puzzleBtn">
@@ -234,6 +234,9 @@
           <button class="btn btn-success btn-lg mt-3 mb-3" id="reloadPuzzle">
             다른 퍼즐 보기
           </button>
+          <button class="btn btn-secondary btn-lg mt-3 mb-3" id="checkPuzzle">
+            정답 확인
+          </button>
           <p class="card-text text-muted" style="font-size: 0.95rem">
             퍼즐은 요청할 때마다 즉시 바뀌지 않으며, 약
             <strong>15초 정도의 대기 시간</strong>이 있을 수 있습니다.
@@ -259,6 +262,62 @@
       </div>
     </section>
 
+    <!-- 프로모션 선택 모달 (Bootstrap 기반) -->
+    <div
+      class="modal fade"
+      id="promotionModal"
+      tabindex="-1"
+      aria-labelledby="promotionModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="promotionModalLabel">프로모션 선택</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body text-center">
+            <p class="mb-3">프로모션할 기물을 선택하세요:</p>
+            <div class="d-flex justify-content-around">
+              <button
+                class="btn btn-outline-dark promotion-piece"
+                data-piece="q"
+                data-bs-dismiss="modal"
+              >
+                ♕ 퀸
+              </button>
+              <button
+                class="btn btn-outline-dark promotion-piece"
+                data-piece="r"
+                data-bs-dismiss="modal"
+              >
+                ♖ 룩
+              </button>
+              <button
+                class="btn btn-outline-dark promotion-piece"
+                data-piece="b"
+                data-bs-dismiss="modal"
+              >
+                ♗ 비숍
+              </button>
+              <button
+                class="btn btn-outline-dark promotion-piece"
+                data-piece="n"
+                data-bs-dismiss="modal"
+              >
+                ♘ 나이트
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- =========================================
          푸터(선택)
          =========================================
@@ -270,7 +329,8 @@
       <p>Copyright © 2023 My Chess</p>
     </footer>
     -->
-
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <!-- Chessboard.js -->

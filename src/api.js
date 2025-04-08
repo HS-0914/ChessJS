@@ -1,5 +1,10 @@
 import { games } from "./game.js";
-import { boards, updateBoardPosition } from "./board.js";
+import {
+  boards,
+  updateBoardPosition,
+  chessPuzzle,
+  initBoard,
+} from "./board.js";
 
 export function comTurn(boardId) {
   const depth = Number($("#depth").val());
@@ -35,7 +40,12 @@ export function randomChess(boardId) {
   const board = boards[boardId];
   const possibleMoves = chess.moves();
   // exit if the game is over
-  if (chess.isGameOver()) return;
+  if (chess.isGameOver()) {
+    setTimeout(() => {
+      initBoard("aiBoard");
+      randomChess("aiBoard");
+    }, 60000);
+  }
 
   const randomIdx = Math.floor(Math.random() * possibleMoves.length);
   chess.move(possibleMoves[randomIdx]);
@@ -54,6 +64,8 @@ export function loadPuzzle(boardId) {
       const board = boards[boardId];
       const chess = games[boardId];
       const { mainMoves, variations } = parsePGNWithVariations(pgn);
+      chessPuzzle.puzzle = mainMoves;
+      chessPuzzle.index = 0;
       console.log(mainMoves);
       console.log(variations);
       $("#puzzleTitle").text(title);

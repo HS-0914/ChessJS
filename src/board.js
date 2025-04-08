@@ -5,6 +5,13 @@ const whiteSquareGrey = "#a9a9a9";
 const blackSquareGrey = "#696969";
 
 export const boards = {};
+export const state = {
+  pendingPromotion: null,
+};
+export const chessPuzzle = {
+  puzzle: [],
+  index: 0,
+};
 
 function removeGreySquares(boardId) {
   $(`#${boardId} .square-55d63`).css("background", "");
@@ -32,23 +39,70 @@ function onDragStart(boardId, _source, piece) {
 
 function onDrop(boardId, source, target) {
   const chess = games[boardId];
+  const tryMove = { from: source, to: target, promotion: "q" };
   removeGreySquares(boardId);
+  const moves = chess.moves({ square: source, verbose: true });
+  for (const move of moves) {
+    if (move.to === target && move.isPromotion()) {
+      state.pendingPromotion = { tryMove, boardId };
+      const modal = new bootstrap.Modal(
+        document.getElementById("promotionModal")
+      );
+      modal.show();
+      return;
+    }
+  }
+  return chessMove(boardId, chess, tryMove);
+}
+
+export function chessMove(boardId, chess, chessMove) {
   try {
-    chess.move({ from: source, to: target, promotion: "q" });
+    const moveObj = chess.move(chessMove);
+    console.log(moveObj);
+    if (state.pendingPromotion) {
+      updateBoardPosition(boardId);
+      state.pendingPromotion = null;
+    }
+    if (boardId === "puzzleBoard") {
+      if (moveObj.san == chessPuzzle.puzzle[chessPuzzle.index]) {
+        if (++chessPuzzle.index > chessPuzzle.puzzle.length) {
+          alert("Clear!");
+          return;
+        }
+        setTimeout(() => {
+          chess.move(chessPuzzle.puzzle[chessPuzzle.index++]);
+          boards[boardId].position(chess.fen());
+        }, 1000);
+      } else {
+        alert("다시 생각해보세요!");
+        chess.undo();
+        return "snapback";
+      }
+    }
   } catch {
     return "snapback";
   }
-  if (boardId === "puzzleBoard") {
-    checkPuzzle();
-  }
-
-  if (boardId !== "myBoard") return;
-  if (chess.isGameOver()) {
-    alert("Checkmate!");
+  if (boardId === "myBoard") {
+    setTimeout(() => comTurn(boardId), 1000);
   }
 }
 
-function checkPuzzle() {}
+export function checkPuzzle() {
+  const chess = games["puzzleBoard"];
+  if (chessPuzzle.index == chessPuzzle.puzzle.length) {
+    setTimeout(() => {
+      chessPuzzle.puzzle.forEach(() => chess.undo());
+      updateBoardPosition("puzzleBoard");
+      chessPuzzle.index = 0;
+    }, 10000);
+  } else {
+    setTimeout(() => {
+      chess.move(chessPuzzle.puzzle[chessPuzzle.index++]);
+      boards["puzzleBoard"].position(chess.fen());
+      checkPuzzle();
+    }, 2000);
+  }
+}
 
 function onMouseoverSquare(boardId, square) {
   const chess = games[boardId];

@@ -1,6 +1,6 @@
 import { loadPuzzle } from "./api.js";
-import { undoMove } from "./game.js";
-import { updateBoardPosition } from "./board.js";
+import { undoMove, games } from "./game.js";
+import { updateBoardPosition, state, chessMove, checkPuzzle } from "./board.js";
 
 export function initUI() {
   $("#depth, #thinkingTime").on("input", function () {
@@ -56,5 +56,24 @@ export function initUI() {
   // 버튼 눌렀을 때 다시 로딩
   $("#reloadPuzzle").on("click", function () {
     loadPuzzle("puzzleBoard");
+  });
+
+  // 승격 기물 선택
+  $(".promotion-piece").on("click", function () {
+    const chosenPiece = $(this).data("piece"); // 'q', 'r', 'b', 'n'
+
+    if (state.pendingPromotion) {
+      const { tryMove, boardId } = state.pendingPromotion;
+      tryMove.promotion = chosenPiece;
+
+      const chess = games[boardId];
+      chessMove(boardId, chess, tryMove);
+    }
+    $("#promotionModal").hide();
+  });
+
+  $("#checkPuzzle").on("click", () => {
+    console.log("checkPuzzle");
+    checkPuzzle();
   });
 }
