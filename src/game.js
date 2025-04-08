@@ -7,9 +7,7 @@ export function newGame(gameId) {
 }
 
 export function undoMove(boardId) {
-  console.log(boardId);
   const chess = games[boardId];
-  console.log(chess);
   if (chess.isGameOver()) {
     chess.undo();
   } else {

@@ -20,11 +20,9 @@ function greySquare(boardId, square) {
 
 function onDragStart(boardId, _source, piece) {
   const chess = games[boardId];
-  // if(boardId ==="myBoard")
-  console.log(chess);
   if (
     chess.isGameOver() ||
-    boardId !== "myBoard" ||
+    boardId === "aiBoard" ||
     (chess.turn() === "w" && piece.startsWith("b")) ||
     (chess.turn() === "b" && piece.startsWith("w"))
   ) {
@@ -40,16 +38,21 @@ function onDrop(boardId, source, target) {
   } catch {
     return "snapback";
   }
+  if (boardId === "puzzleBoard") {
+    checkPuzzle();
+  }
+
+  if (boardId !== "myBoard") return;
   if (chess.isGameOver()) {
-    alert("checkmate!");
-  } else {
-    setTimeout(() => comTurn(boardId), 250);
+    alert("Checkmate!");
   }
 }
 
+function checkPuzzle() {}
+
 function onMouseoverSquare(boardId, square) {
   const chess = games[boardId];
-  const moves = chess.moves({ square, verbose: true, promotion: "q" });
+  const moves = chess.moves({ square, verbose: true });
   if (moves.length === 0) return;
   greySquare(boardId, square);
   moves.forEach((m) => greySquare(boardId, m.to));

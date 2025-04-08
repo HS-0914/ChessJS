@@ -1,3 +1,4 @@
+import { loadPuzzle } from "./api.js";
 import { undoMove } from "./game.js";
 import { updateBoardPosition } from "./board.js";
 
@@ -50,5 +51,10 @@ export function initUI() {
         600 // 부드럽게 0.6초 동안 스크롤
       );
     }
+  });
+
+  // 버튼 눌렀을 때 다시 로딩
+  $("#reloadPuzzle").on("click", function () {
+    loadPuzzle("puzzleBoard");
   });
 }
