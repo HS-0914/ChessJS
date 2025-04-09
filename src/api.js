@@ -26,13 +26,8 @@ export function comTurn(boardId) {
       chess.move(san);
       if (chess.isGameOver()) {
         alert("YOU DIED");
-        chess.load(tempFen);
-        chess.undo();
-        updateBoardPosition(boardId);
-        return;
-      } else {
-        updateBoardPosition(boardId);
       }
+      updateBoardPosition(boardId);
     },
     error: function (error) {
       console.log("에러 : ", error);
