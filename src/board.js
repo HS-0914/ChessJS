@@ -30,6 +30,7 @@ function onDragStart(boardId, _source, piece) {
   if (
     chess.isGameOver() ||
     boardId === "aiBoard" ||
+    (boardId === "myBoard" && chess.turn() === "b") ||
     (chess.turn() === "w" && piece.startsWith("b")) ||
     (chess.turn() === "b" && piece.startsWith("w"))
   ) {
@@ -58,7 +59,6 @@ function onDrop(boardId, source, target) {
 export function chessMove(boardId, chess, chessMove) {
   try {
     const moveObj = chess.move(chessMove);
-    console.log(moveObj);
     if (state.pendingPromotion) {
       updateBoardPosition(boardId);
       state.pendingPromotion = null;

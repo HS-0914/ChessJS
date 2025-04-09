@@ -21,7 +21,6 @@ export function comTurn(boardId) {
       maxThinkingTime,
     }),
     success: function (res) {
-      console.log(res);
       const san = res.san;
       chess.move(san);
       updateBoardPosition(boardId);
