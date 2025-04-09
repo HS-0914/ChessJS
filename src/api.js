@@ -38,14 +38,14 @@ export function comTurn(boardId) {
 export function randomChess(boardId) {
   const chess = games[boardId];
   const board = boards[boardId];
-  const possibleMoves = chess.moves();
   // exit if the game is over
   if (chess.isGameOver()) {
     setTimeout(() => {
       initBoard("aiBoard");
-      randomChess("aiBoard");
-    }, 60000);
+    }, 10000);
   }
+
+  const possibleMoves = chess.moves();
 
   const randomIdx = Math.floor(Math.random() * possibleMoves.length);
   chess.move(possibleMoves[randomIdx]);
