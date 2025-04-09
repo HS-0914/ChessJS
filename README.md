@@ -9,7 +9,7 @@
 
 ### ✅ 1. API와 1:1 대국
 
-- `chess.js` 엔진을 활용하여 체스 룰 기반의 게임 상태 관리
+- `chess.js` 라이브러리를 활용하여 체스 룰 기반의 게임 상태 관리
 - `chess-api.com` API를 통해 다음 수 계산
 - 사용자는 `Depth`, `Thinking Time(ms)`을 조절하여 난이도 조정 가능
 
@@ -64,5 +64,10 @@ index.html            // 전체 UI 구성 및 모달 포함
 - `puzzleBoard`: 실시간 퍼즐 풀이
 
   ![image](https://github.com/user-attachments/assets/33934cbb-8eec-4d80-b701-50ff92839d6f)
+
+- 모달: 프로모션 기물 선택 (`♕ ♖ ♗ ♘`)
+
+  ![image](https://github.com/user-attachments/assets/1dad8813-0472-42b4-a1f4-1e36dca6da77)
+
 
 ---
