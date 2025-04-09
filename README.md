@@ -63,6 +63,6 @@ index.html            // 전체 UI 구성 및 모달 포함
 
 - `puzzleBoard`: 실시간 퍼즐 풀이
 
-![image](https://github.com/user-attachments/assets/33934cbb-8eec-4d80-b701-50ff92839d6f)
+  ![image](https://github.com/user-attachments/assets/33934cbb-8eec-4d80-b701-50ff92839d6f)
 
 ---
