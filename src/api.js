@@ -30,8 +30,9 @@ export function comTurn(boardId) {
         chess.undo();
         updateBoardPosition(boardId);
         return;
+      } else {
+        updateBoardPosition(boardId);
       }
-      updateBoardPosition(boardId);
     },
     error: function (error) {
       console.log("에러 : ", error);
