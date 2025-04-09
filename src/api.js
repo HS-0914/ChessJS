@@ -21,8 +21,16 @@ export function comTurn(boardId) {
       maxThinkingTime,
     }),
     success: function (res) {
+      const tempFen = chess.fen();
       const san = res.san;
       chess.move(san);
+      if (chess.isGameOver()) {
+        alert("YOU DIED");
+        chess.load(tempFen);
+        chess.undo();
+        updateBoardPosition(boardId);
+        return;
+      }
       updateBoardPosition(boardId);
     },
     error: function (error) {

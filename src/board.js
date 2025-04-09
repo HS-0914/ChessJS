@@ -82,6 +82,10 @@ export function chessMove(boardId, chess, chessMove) {
   } catch {
     return "snapback";
   }
+  if (chess.isGameOver()) {
+    alert("🥳 Checkmate! You Win! 🥳");
+    return;
+  }
   if (boardId === "myBoard") {
     setTimeout(() => comTurn(boardId), 1000);
   }
