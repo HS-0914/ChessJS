@@ -29,7 +29,7 @@
 
 | 영역         | 기술 |
 |--------------|------|
-| 프론트엔드   | HTML, CSS, JavaScript, jQuery, Bootstrap |
+| 페이지   | HTML, CSS, JavaScript, jQuery, Bootstrap |
 | 체스 로직    | [chess.js](https://github.com/jhlywa/chess.js) |
 | 보드 렌더링  | [@chrisoakman/chessboardjs](https://www.npmjs.com/package/@chrisoakman/chessboardjs) |
 | 다음 수 계산      | [chess-api.com](https://chess-api.com/) |
