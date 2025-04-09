@@ -61,7 +61,7 @@ index.html            // 전체 UI 구성 및 모달 포함
 
   ![image](https://github.com/user-attachments/assets/9cfa8c02-54b5-4987-93d2-f8354c2bb367)
 
-- `puzzleBoard`: 실시간 퍼즐 풀이
+- `puzzleBoard`: 체스 퍼즐 풀이
 
   ![image](https://github.com/user-attachments/assets/33934cbb-8eec-4d80-b701-50ff92839d6f)
 
