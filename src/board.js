@@ -39,9 +39,9 @@ function onDragStart(boardId, _source, piece) {
 }
 
 function onDrop(boardId, source, target) {
+  removeGreySquares(boardId);
   const chess = games[boardId];
   const tryMove = { from: source, to: target, promotion: "q" };
-  removeGreySquares(boardId);
   const moves = chess.moves({ square: source, verbose: true });
   for (const move of moves) {
     if (move.to === target && move.isPromotion()) {
@@ -137,11 +137,4 @@ export function initBoard(boardId) {
     onMouseoutSquare: () => onMouseoutSquare(boardId),
     onSnapEnd: () => updateBoardPosition(boardId),
   });
-  // checkmate test
-  // if (boardId === "myBoard") {
-  //   games[boardId].load("6k1/5ppp/8/8/8/8/5PPP/3QR1K1 w - - 0 1", {
-  //     skipValidation: true,
-  //   });
-  //   boards[boardId].position(games[boardId].fen());
-  // }
 }

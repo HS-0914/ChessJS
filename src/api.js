@@ -21,13 +21,12 @@ export function comTurn(boardId) {
       maxThinkingTime,
     }),
     success: function (res) {
-      const tempFen = chess.fen();
       const san = res.san;
       chess.move(san);
+      updateBoardPosition(boardId);
       if (chess.isGameOver()) {
         alert("YOU DIED");
       }
-      updateBoardPosition(boardId);
     },
     error: function (error) {
       console.log("에러 : ", error);
@@ -41,11 +40,13 @@ export function comTurn(boardId) {
 export function randomChess(boardId) {
   const chess = games[boardId];
   const board = boards[boardId];
-  // exit if the game is over
+  // retry if the game is over
   if (chess.isGameOver()) {
     setTimeout(() => {
-      initBoard("aiBoard");
+      initBoard(boardId);
+      randomChess(boardId);
     }, 10000);
+    return;
   }
 
   const possibleMoves = chess.moves();
@@ -73,8 +74,9 @@ export function loadPuzzle(boardId) {
       console.log(variations);
       $("#puzzleTitle").text(title);
       $("#puzzleLink").attr("href", url);
-      board.position(fen);
       chess.load(fen);
+      board.clear(true);
+      board.position(fen);
       if (chess.turn() === "b") {
         board.orientation("black");
       } else {
@@ -86,7 +88,7 @@ export function loadPuzzle(boardId) {
     },
   });
 }
-function cleanText(text) {
+const cleanText = (text) => {
   return text
     .replace(/\r?\n/g, " ") // 줄바꿈 → 공백
     .replace(/\[.*?\]/g, "") // PGN 메타데이터 제거
@@ -96,7 +98,7 @@ function cleanText(text) {
     .replace(/\d+\.+/g, "") // 수 번호 제거 (1. 2... 등)
     .replace(/\.\.\./g, "")
     .trim();
-}
+};
 
 function parsePGNWithVariations(pgn) {
   const cleaned = cleanText(pgn);
@@ -120,12 +122,3 @@ function parsePGNWithVariations(pgn) {
     variations,
   };
 }
-/**
-1. Nb6 $3 1... Nxb6 2. Rc7 $3 2... Qxc7 (2... h5 3. Qh3) (2... Qe8 3. Qxe6+ Kh8
-
-4. Rxe7 Qxe7 5. Bb2+ Qg7 6. Nf7+ Kg8 7. Nh6+ Kh8 8. Qg8#) 3. Qxe6+ Kg7 (3...
-
-Kh8 4. Bb2+ Bg7 5. Nf7+ Kg8 6. Nh6+ Kh8 7. Qg8+ Rxg8 8. Nf7#) 4. Bb2+ Kh6 5.
-
-Qh3+ Kxg5 6. f4# *
- */
